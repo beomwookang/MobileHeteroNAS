@@ -1,4 +1,4 @@
-# Adapting Neural Network while Rethinking Model Paralleism
+# Rethinking Model Paralleism via Neural Network Adaptation
 *Note that this work is currently under-review and thus speicific explanation and details are not available.
 
 ## Requirements and Setup
