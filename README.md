@@ -1,5 +1,5 @@
 # Adapting Neural Network while Rethinking Model Paralleism
-*Note that this work is currently **under-review** and thus speicific explanation and details are not available.
+*Note that this work is currently under-review and thus speicific explanation and details are not available.
 
 ## Requirements and Setup
 - For Runtime: 
