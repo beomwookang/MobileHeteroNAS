@@ -36,7 +36,7 @@ model.load_state_dict(load_adapted_params('mobilenet_v2'))
 $ python3 eval.py --base_model mobilenet_v2 --path 'your/path/to/imagenet'  
 
     # -j: number of workers (default: 4)
-    # -b: batch_size (default: 512)
+    # -b: batch_size (default: 128)
 ```
 
 ## File Structure 
