@@ -28,10 +28,10 @@ def get_num_workers(server_name, name_list_path='ServerList.json'):
 def load_adapted_params(base_model_name='mobilenet_v2'):
     assert base_model_name in ['mobilenet_v2', 'mnasnet_b1', 'fbnet_c']
 
-    headers = {'Authorization': "token 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"}
+    headers = {'Authorization': "token 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"}
     url = "https://raw.githubusercontent.com/beomwookang/het_pretrained/main/"+base_model_name+"_adapted.pth"
     req = urllib.request.Request(url, headers=headers)
-    
+
     print("Loading %s_adapted params..." %base_model_name)
     with urllib.request.urlopen(req) as response:
         with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
@@ -40,7 +40,7 @@ def load_adapted_params(base_model_name='mobilenet_v2'):
 
 
 # source code: https://github.com/clovaai/CutMix-PyTorch/blob/master/utils.py
-__all__ = ["Compose", "Lighting", "ColorJitter"]
+#__all__ = ["Compose", "Lighting", "ColorJitter"]
 
 
 class Compose(object):
