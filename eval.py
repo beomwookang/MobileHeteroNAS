@@ -23,9 +23,10 @@ warnings.filterwarnings("ignore")
 parser = argparse.ArgumentParser(description='Evaluating for ImageNet-1000')
 parser.add_argument('-j', '--workers', default=4, type=int, metavar='N',
                     help='number of data loading workers (default: 4)')
-parser.add_argument('-b', '--batch_size', default=512, type=int,
-                    metavar='N', help='mini-batch size (default: 512)')
+parser.add_argument('-b', '--batch_size', default=128, type=int,
+                    metavar='N', help='mini-batch size (default: 128)')
 parser.add_argument('--base_model', default='mobilenet_v2', type=str,
+                    choices=['mobilenet_v2', 'mnasnet_b1', 'fbnet_c'],
                     help='target base model to be adapted (default: mobilnet_v2)')
 parser.add_argument('--path', type=str, metavar='PATH', help='path to ImageNet dataset')
 
@@ -53,16 +54,19 @@ def main():
     numberofclass = 1000
 
     #Load Adapted PyTorch Model
+    print("\nModel: %s Adapted" %args.base_model)
     model_config = "model_configs/"+args.base_model+"_adapted.json"
     model = TorchBranchedModel(model_config)
-    model = torch.nn.DataParallel(model).cuda()
 
-    #Load Params by API Call
-    model.load_state_dict(load_adapted_params(args.base_model))
 
     #Count Model Complexity
     macs, params = get_model_complexity_info(model, (3,224,224), as_strings=True, print_per_layer_stat=False, verbose=False)
     print("MACs: %s, Params: %s" %(macs, params))
+
+
+    #Load Params by API Call
+    model.load_state_dict(load_adapted_params(args.base_model))
+    model = torch.nn.DataParallel(model).cuda()
 
 
     # define loss function (criterion) and optimizer
@@ -71,6 +75,7 @@ def main():
     cudnn.benchmark = True
 
     # evaluate on validation set
+    print("Validating...")
     acc1, acc5, val_loss = validate(val_loader, model, criterion)
 
     print('Accuracy top-1: ', acc1, '\t\tAccuracy top-5: ', acc5)
@@ -104,14 +109,13 @@ def validate(val_loader, model, criterion):
         batch_time.update(time.time() - end)
         end = time.time()
 
-        if i % args.print_freq == 0 and args.verbose == True:
-            print('Test (on val set): [{0}/{1}]\t'
-                  'Time {batch_time.val:.3f} ({batch_time.avg:.3f})\t'
-                  'Loss {loss.val:.4f} ({loss.avg:.4f})\t'
-                  'Top 1-acc {top1.val:.4f} ({top1.avg:.4f})\t'
-                  'Top 5-acc {top5.val:.4f} ({top5.avg:.4f})'.format(
-                i, len(val_loader), batch_time=batch_time, loss=losses,
-                top1=top1, top5=top5))
+        print('Test (on val set): [{0}/{1}]\t'
+              'Time {batch_time.val:.3f} ({batch_time.avg:.3f})\t'
+              'Loss {loss.val:.4f} ({loss.avg:.4f})\t'
+              'Top 1-acc {top1.val:.4f} ({top1.avg:.4f})\t'
+              'Top 5-acc {top5.val:.4f} ({top5.avg:.4f})'.format(
+            i, len(val_loader), batch_time=batch_time, loss=losses,
+            top1=top1, top5=top5))
 
     return top1.avg, top5.avg, losses.avg
 

@@ -28,11 +28,10 @@ def get_num_workers(server_name, name_list_path='ServerList.json'):
 def load_adapted_params(base_model_name='mobilenet_v2'):
     assert base_model_name in ['mobilenet_v2', 'mnasnet_b1', 'fbnet_c']
 
-    headers = {'Authorization': "token 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"}
     url = "https://raw.githubusercontent.com/beomwookang/het_pretrained/main/"+base_model_name+"_adapted.pth"
-    req = urllib.request.Request(url, headers=headers)
+    req = urllib.request.Request(url)
 
-    print("Loading %s_adapted params..." %base_model_name)
+    print("Loading %s_adapted params...\n" %base_model_name)
     with urllib.request.urlopen(req) as response:
         with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
             shutil.copyfileobj(response, tmp_file)
