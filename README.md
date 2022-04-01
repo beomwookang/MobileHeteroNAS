@@ -15,7 +15,7 @@
     ```
 - Set the environment variable PYTHONPATH
     ```
-    export PYTHONPATH=/path/to/hetero_network_adaptation
+    export PYTHONPATH=/path/to/HeteroNetworkAdaptation
     ```
 
 ## How to use
