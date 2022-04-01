@@ -62,7 +62,7 @@ def main():
 
     #Count Model Complexity
     macs, params = get_model_complexity_info(model, (3,224,224), as_strings=True, print_per_layer_stat=False, verbose=False)
-    print("MACs: %s, Params: %s" %(macs, params)
+    print("MACs: %s, Params: %s" %(macs, params))
 
 
     # define loss function (criterion) and optimizer
