@@ -35,6 +35,7 @@ model.load_state_dict(load_adapted_params('mobilenet_v2'))
 ```
 $ python3 eval.py --base_model mobilenet_v2 --path 'your/path/to/imagenet'  
 
+    # --base_model: base model that is being adapted -> available: ['mobilenet_v2', 'mnasnet_b1', 'fbnet_c']
     # -j: number of workers (default: 4)
     # -b: batch_size (default: 128)
 ```
