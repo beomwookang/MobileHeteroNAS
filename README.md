@@ -1,4 +1,4 @@
-# Enhancing Model Paralleism via Neural Network Adaptation (Title Modified)
+# Enhancing Model Paralleism via Neural Architecture Search (Title Modified)
 *Note that this work is currently under-review and thus speicific explanation and details are not available.
 
 ## Requirements and Setup
@@ -15,13 +15,13 @@
     ```
 - Set the environment variable PYTHONPATH
     ```
-    export PYTHONPATH=/path/to/HeteroNetworkAdaptation
+    export PYTHONPATH=/path/to/MobileHeteroNAS
     ```
 
 ## How to use
 - To simply load PyTorch model :
 ```
-#~/hetero_network_adaptation/
+#~/MobileHeteroNAS/
 
 from modules.torch_modules import TorchBranchedModel
 from utils import load_adapted_params
